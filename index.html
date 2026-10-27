@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SHOPFLOW</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="loginPage" class="auth"><div class="auth-box">
+<h1>SHOPFLOW</h1><p>Simple business management for small businesses.</p>
+<input id="loginEmail" type="email" placeholder="Email"><input id="loginPassword" type="password" placeholder="Password">
+<label class="remember"><input id="rememberMe" type="checkbox"> Remember me</label>
+<button onclick="login()">Login</button><p class="switch">Don't have an account? <span onclick="showSignup()">Sign up</span></p>
+<small>Prototype demo — data is saved on this device.</small>
+</div></div>
+
+<div id="signupPage" class="auth hidden"><div class="auth-box">
+<h1>Create account</h1><p>Start your SHOPFLOW workspace.</p>
+<input id="signupName" placeholder="Your name"><input id="signupEmail" type="email" placeholder="Email"><input id="signupPassword" type="password" placeholder="Password">
+<button onclick="signup()">Create account</button><p class="switch">Already have an account? <span onclick="showLogin()">Login</span></p>
+</div></div>
+
+<div id="setupPage" class="auth hidden"><div class="auth-box">
+<h1>Set up your business</h1><p>Tell us a little about your business.</p>
+<input id="businessName" placeholder="Business name">
+<select id="businessType"><option value="">Business type</option><option>Retail</option><option>Mobile / Phone Shop</option><option>Fashion</option><option>Cosmetics</option><option>Food</option><option>Other</option></select>
+<button onclick="setupBusiness()">Continue</button>
+</div></div>
+
+<div id="app" class="hidden">
+<aside><h2>SHOPFLOW</h2><p id="sideBusiness">My Business</p>
+<nav>
+<button class="active" onclick="showPage('dashboard',this)">Dashboard</button>
+<button onclick="showPage('stock',this)">Stock Lite</button><button onclick="showPage('catalogue',this)">Catalogue</button>
+<button onclick="showPage('sales',this)">Sales</button><button onclick="showPage('customers',this)">Customers</button><button onclick="showPage('queue',this)">Queue</button>
+</nav><button class="logout" onclick="logout()">Logout</button></aside>
+
+<main>
+<section id="dashboard" class="page"><div class="top"><div><h1 id="welcomeMessage">Welcome!</h1><p id="businessDisplay"></p></div><button class="demo-btn" onclick="loadDemoData()">Load Demo Data</button></div>
+<div class="cards"><div><span>Sales</span><strong id="salesTotal">₦0</strong></div><div><span>Products</span><strong id="productCount">0</strong></div><div><span>Low Stock</span><strong id="lowStock">0</strong></div><div><span>Customers</span><strong id="customerCount">0</strong></div></div>
+<div class="overview"><div><span>Total Stock</span><strong id="stockCount">0</strong></div><div><span>Pending Queue</span><strong id="queueCount">0</strong></div><div><span>Customer Balance</span><strong id="balance">₦0</strong></div></div>
+<div class="quick"><h2>Quick actions</h2><button onclick="showPage('stock')">+ Add Product</button><button onclick="showPage('catalogue')">View Catalogue</button><button onclick="showPage('sales')">Record Sale</button><button onclick="showPage('customers')">+ Customer</button><button onclick="showPage('queue')">+ Queue</button></div>
+<div class="recent"><h2>Recent activity</h2><div id="recentActivity">No activity yet.</div></div></section>
+
+<section id="stock" class="page hidden"><div class="top"><div><h1>Stock Lite</h1><p>Add and manage products.</p></div><button onclick="showProductForm()">+ Add Product</button></div>
+<div id="productForm" class="form-box hidden"><h2>Add Product</h2><input id="productName" placeholder="Product name"><input id="productCategory" placeholder="Category"><input id="productPrice" type="number" placeholder="Selling price"><input id="productStock" type="number" placeholder="Stock quantity"><input id="productLowStock" type="number" placeholder="Low stock alert level"><input id="productImage" type="file" accept="image/*"><button onclick="saveProduct()">Save Product</button><button class="light" onclick="hideProductForm()">Cancel</button></div>
+<div class="search-row"><input id="stockSearch" oninput="displayProducts()" placeholder="Search products..."><select id="stockFilter" onchange="displayProducts()"><option value="all">All stock</option><option value="low">Low stock</option><option value="out">Out of stock</option></select></div>
+<div id="productGrid" class="grid"></div></section>
+
+<section id="catalogue" class="page hidden"><div class="top"><div><h1>Catalogue</h1><p>Products available for customers.</p></div></div><input id="catalogueSearch" oninput="displayCatalogue()" placeholder="Search catalogue..."><div id="catalogueGrid" class="grid"></div></section>
+
+<section id="sales" class="page hidden"><div class="top"><div><h1>Sales</h1><p>Record a sale and update stock automatically.</p></div></div>
+<div class="form-box"><select id="saleProduct"></select><input id="saleQuantity" type="number" min="1" value="1"><select id="saleCustomer"></select><input id="saleAmountPaid" type="number" min="0" placeholder="Amount paid"><button onclick="recordSale()">Record Sale</button></div><div id="salesList"></div></section>
+
+<section id="customers" class="page hidden"><div class="top"><div><h1>Customers</h1><p>Customer records and balances.</p></div><button onclick="showCustomerForm()">+ Add Customer</button></div>
+<div id="customerForm" class="form-box hidden"><input id="customerName" placeholder="Customer name"><input id="customerPhone" placeholder="Phone number"><button onclick="saveCustomer()">Save Customer</button></div><div id="customerList" class="list"></div></section>
+
+<section id="queue" class="page hidden"><div class="top"><div><h1>Queue</h1><p>Track customers waiting to be served.</p></div></div>
+<div class="form-box"><input id="queueName" placeholder="Customer name"><input id="queueReason" placeholder="What do they need?"><button onclick="saveQueue()">Add Customer</button></div><div id="queueList" class="list"></div></section>
+</main></div>
+<script src="script.js"></script>
+</body></html>
